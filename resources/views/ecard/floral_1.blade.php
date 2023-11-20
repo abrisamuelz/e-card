@@ -691,22 +691,6 @@
                             <img src="{{ asset('storage/img/logo.png') }} " style="height: 50px" alt="Kahwinnow Logo">
                         </a>
                     </p>
-                </li>
-                <li class="flex justify-center pt-10">
-                    <p class="text-lg">Follow Us</p>
-                </li>
-                <li class="flex justify-center">
-                    <p class="text-3xl tracking-widest">
-                        <a target="_blank" href="https://www.facebook.com/kahwinnow">
-                            <i class="bx bxl-facebook"></i>
-                        </a>
-                        <a target="_blank" href="https://www.instagram.com/kahwinnow/">
-                            <i class="bx bxl-instagram"></i>
-                        </a>
-                        <a target="_blank" href="https://www.tiktok.com/@kahwinnow.com">
-                            <i class="bx bxl-tiktok"></i>
-                        </a>
-                    </p>
                 </li> --}}
             </ul>
         </footer>
