@@ -11,4 +11,6 @@ class CardData extends Model
 
     const TABLE_NAME = 'card_data';
     protected $table = self::TABLE_NAME;
+
+    protected $guarded = [];
 }

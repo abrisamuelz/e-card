@@ -28,7 +28,8 @@ return new class extends Migration
             $table->longText('ucapan_pembukaan')->nullable();
 
             $table->string('lokasi')->nullable();
-            $table->string('link_map')->nullable();
+            $table->string('link_map_google')->nullable();
+            $table->string('link_map_waze')->nullable();
 
             $table->date('tarikh_majlis')->nullable();
             $table->time('masa_mula')->nullable();
@@ -48,6 +49,11 @@ return new class extends Migration
 
             $table->string('contact_4_name')->nullable();
             $table->string('contact_4_number')->nullable();
+
+            $table->string('nama_bank')->nullable();
+            $table->string('no_akaun')->nullable();
+            $table->string('atas_nama')->nullable();
+            $table->string('qr_img_url')->nullable();
 
             $table->string('card_type')->default('floral_1');
             
