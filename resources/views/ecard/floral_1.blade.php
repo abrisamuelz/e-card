@@ -5,21 +5,26 @@
 
 <head>
     <script>
-        (function (h, o, t, j, a, r) {
-            h.hj = h.hj || function () { (h.hj.q = h.hj.q || []).push(arguments) };
-            h._hjSettings = { hjid: 3573114, hjsv: 6 };
+        (function(h, o, t, j, a, r) {
+            h.hj = h.hj || function() {
+                (h.hj.q = h.hj.q || []).push(arguments)
+            };
+            h._hjSettings = {
+                hjid: 3573114,
+                hjsv: 6
+            };
             a = o.getElementsByTagName('head')[0];
-            r = o.createElement('script'); r.async = 1;
+            r = o.createElement('script');
+            r.async = 1;
             r.src = t + h._hjSettings.hjid + j + h._hjSettings.hjsv;
             a.appendChild(r);
         })(window, document, 'https://static.hotjar.com/c/hotjar-', '.js?sv=');
     </script>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <meta name="color-scheme" content="light only">
     <meta property="og:site" content="kad-kahwin.susah.my" />
-    <meta property="og:title" content="Walimatulurus | Nurfazlin &amp; Abrisam" />
+    <meta property="og:title" content="Walimatulurus | {!! $cardData->nama_samaran_pengantin !!} &amp; {!! $cardData->nama_samaran_pasangan !!}" />
     <meta property="og:description" content="Tekan pautan untuk lihat jemputan" />
     <meta property="og:image" content="{{ asset('storage/img/card-invite.jpg') }}" />
 
@@ -54,7 +59,7 @@
     <!-- AOS -->
     <link href="{{ asset('storage/card/css/aos.css') }}" rel="stylesheet">
 
-    <title>Walimatulurus | Mariani &amp; Mazlan</title>
+    <title>Walimatulurus | {!! $cardData->nama_samaran_pengantin !!} &amp; {!! $cardData->nama_samaran_pasangan !!}</title>
     <link rel="icon" type="image/x-icon" href="{{ asset('storage/img/favicon.ico') }}" />
 
     <!-- Color Calendar -->
@@ -185,8 +190,7 @@
     <div class="tutorial-overlay hidden" style="background-color: rgba(0,0,0,0.5)">
         <div class="start-content">
             <div class="flex justify-center pb-5">
-                <img src="{{ asset('storage/img/swipe.png') }}"
-                style="height: 100px" alt="Swipe Logo">
+                <img src="{{ asset('storage/img/swipe.png') }}" style="height: 100px" alt="Swipe Logo">
             </div>
             <p class="pb-5" style="color: #fff"><b>Swipe Atas Untuk Lebih Maklumat</b></p>
             <button
@@ -209,9 +213,9 @@
                             <p class="animated fadeInDown main_text drop-shadow-md">Walimatulurus</p>
                         </div>
                         <div class="card-couple">
-                            <p class="card-bride animated zoomIn main_text fontType-1">Mariani</p>
+                            <p class="card-bride animated zoomIn main_text fontType-1">{!! $cardData->nama_samaran_pengantin !!}</p>
                             <p class="card-with animated zoomIn main_text fontType-1">&</p>
-                            <p class="card-groom animated zoomIn main_text fontType-1">Mazlan</p>
+                            <p class="card-groom animated zoomIn main_text fontType-1">{!! $cardData->nama_samaran_pasangan !!}</p>
                         </div>
                         <button
                             class="text-white bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-800 rounded-full text-sm px-3.5 py-2.5  mt-3 mb-3"
@@ -290,8 +294,8 @@
                                 <input type="hidden" name="limit" id="limit" value="5">
                                 <input type="hidden" name="status" value="">
                                 <p class="pb-1">Nama Anda</p>
-                                <input class="border border-gray-400 p-2 w-full rounded h-8" type="text" name="name"
-                                    required>
+                                <input class="border border-gray-400 p-2 w-full rounded h-8" type="text"
+                                    name="name" required>
                                 <div id="contact_hidden">
                                     <p class="pb-1 pt-3">Nombor Telefon</p>
                                     <input class="border border-gray-400 p-2 w-full rounded h-8" type="tel"
@@ -351,24 +355,21 @@
                     <div class="feature-content">
                         <h2 class="feature-title">Contact</h2>
                         <ul class="contact">
-                            <li class="contact-item">
-                                <span class="name">Mariani</span>
-                                <div class="number">
-                                    <a href="tel:01163430496"><i class='fa fa-phone nav__icon'></i></a>
-                                    <a href="https://api.whatsapp.com/send?phone=601163430496" target="_blank"><i
-                                            class='fab fa-whatsapp nav__icon'></i></a>
-                                </div>
-                            </li>
-                            <li class="contact-item">
-                                <span class="name">Mazlan</span>
-                                <div class="number">
-                                    <a href="tel:0193811243"><i class='fa fa-phone nav__icon'></i></a>
-                                    <a href="https://api.whatsapp.com/send?phone=60193811243" target="_blank"><i
-                                            class='fab fa-whatsapp nav__icon'></i></a>
-                                </div>
-                            </li>
-
-
+                            @if ($contacts)
+                                @foreach ($contacts as $contact)
+                                    @if ($contact['name'] && $contact['number'])
+                                        <li class="contact-item">
+                                            <span class="name" style="text-transform: capitalize;">{{ $contact['name'] }}</span>
+                                            <div class="number">
+                                                <a href="tel:{{ $contact['number'] }}" target="_blank"><i
+                                                        class='fas fa-phone nav__icon'></i></a>
+                                                <a href="https://api.whatsapp.com/send?phone=6{{ $contact['number'] }}"
+                                                    target="_blank"><i class='fab fa-whatsapp nav__icon'></i></a>
+                                            </div>
+                                        </li>
+                                    @endif
+                                @endforeach
+                            @endif
                         </ul>
                     </div>
                 </div>
@@ -376,26 +377,25 @@
                     <div class="feature-content">
                         <h2 class="feature-title">Location</h2>
                         <p class="text-center pb-5 text-lg">
-                            Bukit Beruntung Golf Club<br>
-                            Bandar Bukit Beruntung,
-                            48300 Rawang, Selangor
+                            {{-- split the first , to new line and bold the 1st text --}}
+                            <b>{!! explode(',', $cardData->lokasi)[0] !!}</b><br>
+                            {{-- get everything else other then 1st array --}}
+                            {!! implode(',', array_slice(explode(',', $cardData->lokasi), 1)) !!}
                         </p>
-                        <div class="border-2 border-slate-500">
-                            <iframe class=""
-                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31861.678595867186!2d101.5766371!3d3.4206956000000033!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31cc69016efe1fff%3A0x60f19fa674339bed!2sBukit%20Beruntung%20Golf%20%26%20Country%20Resort!5e0!3m2!1sen!2smy!4v1682385156078!5m2!1sen!2smy"
-                                width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"
-                                referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        <div class="border-2 border-slate-500 padding-2">
+                            {{-- embed_map from db --}}
+                            {!! $cardData->embed_map !!}
+
                         </div>
                         <ul class="location pt-5">
                             <li class="location-icon">
-                                <a target="_blank"
-                                    href="https://www.google.com.my/maps/dir//Bukit+Beruntung+Golf+%26+Country+Resort,+Lot+1994,+18,+Jalan+Melor+3c,+Bandar+Bukit+Beruntung,+48300+Rawang,+Selangor/@3.4206956,101.5766371,14z/data=!4m9!4m8!1m0!1m5!1m1!1s0x31cc69016efe1fff:0x60f19fa674339bed!2m2!1d101.5654234!2d3.4366816!3e0">
+                                <a target="_blank" href="{!! $cardData->link_map_google !!}">
                                     <i class='fas fa-map-marked-alt nav__icon'></i>
                                     <span> GOOGLE MAPS</span>
                                 </a>
                             </li>
                             <li class="location-icon">
-                                <a target="_blank" href="https://waze.com/ul/hw285x1tsj">
+                                <a target="_blank" href="{!! $cardData->link_map_waze !!}">
                                     <i class='fab fa-waze nav__icon'></i>
                                     <span> WAZE</span>
                                 </a>
@@ -413,11 +413,11 @@
                             <div class="text-center">
                                 <input type="hidden" name="event_id" value="63c3f6b935d2b">
                                 <p class="pb-1">Nama Anda</p>
-                                <input class="border border-gray-400 p-2 w-full rounded h-8" type="text" name="name"
-                                    required>
+                                <input class="border border-gray-400 p-2 w-full rounded h-8" type="text"
+                                    name="name" required>
                                 <p class="pb-1 pt-3">Ucapan</p>
-                                <textarea class="border border-gray-400 p-2 w-full" name="wishes" id="" cols="30"
-                                    rows="5" maxlength="250" required></textarea>
+                                <textarea class="border border-gray-400 p-2 w-full" name="wishes" id="" cols="30" rows="5"
+                                    maxlength="250" required></textarea>
                             </div>
                             <div class="flex justify-center pt-5 pb-0">
                                 <button class="wish-btn mr-1" type="submit">
@@ -437,12 +437,13 @@
                     <div class="feature-content">
                         <h2 class="feature-title">Calendar</h2>
                         <p class="text-center pb-5 text-lg">
-                            Sabtu, 23 September 2023
+                            {{-- $cardData->tarikh_majlis date to format iso malay (example: Sabtu, 23 September 2023)  --}}
+                            <b>{!! date('l, j F Y', strtotime($cardData->tarikh_majlis)) !!}</b>
                         </p>
-                        <input type="hidden" id="event_date" value="2023-09-23">
+                        <input type="hidden" id="event_date" value="{{ $cardData->tarikh_majlis }}">
                         <input type="hidden" id="language" value="ms">
                         <div class="pb-5" id="color-calendar"></div>
-                        <ul class="calendar">
+                        {{-- <ul class="calendar">
                             <li class="calendar-icon">
                                 <a href="https://www.kahwinnow.com/storage/ical/marianimazlan.ics">
                                     <i class='fab fa-apple nav__icon'></i>
@@ -456,7 +457,7 @@
                                     <span>Add to Google Calendar</span>
                                 </a>
                             </li>
-                        </ul>
+                        </ul> --}}
                     </div>
                 </div>
                 <div class="feature-card" id="moneygiftModal">
@@ -464,24 +465,29 @@
                         <h2 class="feature-title">Money Gift</h2>
                         <div class="text-center text-lg">
                             <p class="pb-1">Nama Bank</p>
-                            <p class="bg-gray-100 p-1 w-full rounded text-center">Maybank Berhad</p>
+                            <p class="bg-gray-100 p-1 w-full rounded text-center">{!! $cardData->nama_bank !!}</a>
+                            <p class="pb-1 pt-3">Nama Pemegang Akaun</p>
+                            <p class="bg-gray-100 p-1 w-full rounded text-center" style="text-transform: capitalize;">{!! $cardData->atas_nama !!}</a>
                             <p class="pb-1 pt-3">No Akaun</p>
-                            <p class="bg-gray-100 p-1 w-full rounded text-center">162076697556
-                                <a href="javascript:void(0)" onclick="copyAccount('162076697556')"><i
-                                        class="far fa-clone"></i></a>
+                            <p class="bg-gray-100 p-1 w-full rounded text-center" id="no_akaun">
+                                {!! $cardData->no_akaun !!}</a>
+                                {{-- <a href="javascript:void(0)" class="copy-btn"
+                                    onclick="copyToClipboard('{!! $cardData->no_akaun !!}')">
+                                    <i class='far fa-clone nav__icon'></i>
+                                </a> --}}
                             </p>
-                            <p class="pb-1 pt-3">Kod QR</p>
+                            {{-- <p class="pb-1 pt-3">Kod QR</p>
                             <div class="w-full flex justify-center">
-                                <img src="../storage/storage/qr/pCYM46cY7OK5uGe7eduBfFWG8CeYYE8ZzD17zp73.jpg"
+                                <img src="{{ asset('storage/storage/qr/pCYM46cY7OK5uGe7eduBfFWG8CeYYE8ZzD17zp73.jpg') }}"
                                     class="w-64 rounded border-8 border-gray-100" alt="">
                             </div>
                             <div class="flex justify-center pt-5">
                                 <a class="save-btn" type="button"
-                                    href="../storage/storage/qr/pCYM46cY7OK5uGe7eduBfFWG8CeYYE8ZzD17zp73.jpg" download>
+                                    href="{{ asset('storage/storage/qr/pCYM46cY7OK5uGe7eduBfFWG8CeYYE8ZzD17zp73.jpg') }}" download>
                                     <i class='fas fa-download nav__icon'></i>
                                     <span> Simpan</span>
                                 </a>
-                            </div>
+                            </div> --}}
 
                         </div>
                     </div>
@@ -507,19 +513,21 @@
                         <p class="animated fadeInDown main_text drop-shadow-md delay-1">Walimatulurus</p>
                     </div>
                     <div class="card-couple">
-                        <p class="card-bride animated zoomIn main_text delay-2 fontType-1">Mariani</p>
+                        <p class="card-bride animated zoomIn main_text delay-2 fontType-1">{!! $cardData->nama_samaran_pengantin !!}</p>
                         <p class="card-with animated zoomIn main_text delay-3 fontType-1">&</p>
-                        <p class="card-groom animated zoomIn main_text delay-4 fontType-1">Mazlan</p>
+                        <p class="card-groom animated zoomIn main_text delay-4 fontType-1">{!! $cardData->nama_samaran_pasangan !!}</p>
                     </div>
                     <p class="card-date animated zoomIn main_text delay-5">
-                        <span style="font-size: 25px;">Sabtu</span>
+                        <span style="font-size: 25px;">{{ date('l', strtotime($cardData->tarikh_majlis)) }}</span>
                         <br>
-                        <span>September</span>
-                        <span>23</span>,
-                        <span>2023</span>
+                        <span>{{ date('j', strtotime($cardData->tarikh_majlis)) }}</span>
+                        <span>{{ date('F', strtotime($cardData->tarikh_majlis)) }}</span>,
+                        <span>{{ date('Y', strtotime($cardData->tarikh_majlis)) }}</span>
                     </p>
                     <p class="ml-5 mr-5 card-location animated fadeInDown main_text delay-6">
-                        Bukit Beruntung Golf Club
+                        <span>{!! explode(',', $cardData->lokasi)[0] !!}</span>
+                        <br>
+                        {!! implode(',', array_slice(explode(',', $cardData->lokasi), 1)) !!}
                     </p>
                 </div>
             </section>
@@ -541,61 +549,70 @@
             </div>
 
             <!--=============== EVENT INFO ===============-->
-            <section class="container section wedding-info" id="info" data-aos="fade-up" data-aos-duration="1000">
+            <section class="container section wedding-info" id="info" data-aos="fade-up"
+                data-aos-duration="1000">
                 <div class="wrapper">
                     <p class="info-greeting" data-aos="fade-up" data-aos-duration="1000">
                         ASSALAMUALAIKUM WBT &amp; SALAM SEJAHTERA
                     </p>
                     <div class="info-invitor info-parent" data-aos="fade-up" data-aos-duration="1000">
-                        <p>Mahmud bin Jaafar</p>
+                        <p>{!! $cardData->nama_ayah_pengantin !!}</p>
                         <p>&</p>
-                        <p>Azizah binti Hashim</p>
+                        <p>{!! $cardData->nama_ibu_pengantin !!}</p>
                     </div>
 
                     <p class="info-greeting" data-aos="fade-up" data-aos-duration="1000">
-                        Dengan penuh kesyukuran kehadrat Illahi, kami mempersilakan Dato'/Datin/Dr/Tuan/Puan/Encik/Cik
-                        ke walimatulurus anakanda kesayangan kami
+                        {!! $cardData->ucapan_pembukaan !!}
                     </p>
                     <div class="info-invitor info-couple" data-aos="fade-up" data-aos-duration="1000">
-                        <p>Mariani binti Mahmud</p>
+                        <p>{!! $cardData->nama_pengantin !!}</p>
                         <p>&</p>
-                        <p>Mohd Mazlan bin Ithnin</p>
+                        <p>{!! $cardData->nama_pasangan !!}</p>
                     </div>
                     <div class="info-details" data-aos="fade-up" data-aos-duration="1000">
                         <p><b style="color: #be822b">Tarikh</b></p>
-                        <p>Sabtu,
-                            23
-                            September
-                            2023</p>
+                        <p>{{ date('j F Y', strtotime($cardData->tarikh_majlis)) }}</p>
                         <br>
                         <p><b style="color: #be822b">Masa</b></p>
-                        <p>11:00 Pagi -
-                            4:00 Petang</p>
+                        <p>{{ date('h:i A', strtotime($cardData->masa_mula)) }} - {{ date('h:i A', strtotime($cardData->masa_akhir)) }}</p>
+
                         <br>
                         <p><b style="color: #be822b">Tempat</b></p>
                         <p>
-                            Bukit Beruntung Golf Club <br>
-                            Bandar Bukit Beruntung, <br />
-                            48300 Rawang, Selangor
+                            {{-- split the first , to new line and bold the 1st text --}}
+                            {!! explode(',', $cardData->lokasi)[0] !!}<br>
+                            {{-- get everything else other then 1st array --}}
+                            {!! implode(',', array_slice(explode(',', $cardData->lokasi), 1)) !!}
                         </p>
                     </div>
                     <div class="info-schedule" data-aos="fade-up" data-aos-duration="1000">
                         <p><b style="color: #be822b">Aturcara Majlis</b></p>
                         <table class="ml-auto mr-auto">
+                            {{-- tarikh & masa nikah 2023-12-24 09:00:00 --}}
+                            @if ($cardData->tarikh_nikah)
+                                <tr>
+                                    <td class="event">Majlis Nikah</td>
+                                    <td class="gap"></td>
+                                    {{-- date and time --}}
+                                    <td class="time">{{ date('h:i A', strtotime($cardData->tarikh_nikah)) }}</td>
+                                </tr>
+                            @endif
+
+
                             <tr>
                                 <td class="event">Majlis Bermula</td>
                                 <td class="gap"></td>
-                                <td class="time">11:00 Pagi</td>
+                                <td class="time">{{ date('h:i A', strtotime($cardData->masa_mula)) }}</td>
                             </tr>
                             <tr>
                                 <td class="event">Ketibaan Pengantin</td>
                                 <td class="gap"></td>
-                                <td class="time">12:30 Tengah Hari</td>
+                                <td class="time">{{ date('h:i A', strtotime($cardData->masa_bersanding)) }}</td>
                             </tr>
                             <tr>
                                 <td class="event">Majlis Berakhir</td>
                                 <td class="gap"></td>
-                                <td class="time">4:00 Petang</td>
+                                <td class="time">{{ date('h:i A', strtotime($cardData->masa_akhir)) }}</td>
                             </tr>
                         </table>
                     </div>
@@ -621,8 +638,11 @@
 
             <script>
                 document.addEventListener('DOMContentLoaded', () => {
-                    // Unix timestamp (in seconds) to count down to
-                    var eventDate = '1695438000';
+                    // Unix timestamp (in seconds) to count down to . convert event_date to seconds
+                    var eventDate_raw = document.getElementById('event_date').value;
+                    // convert event_date to seconds
+                    var eventDate = new Date(eventDate_raw).getTime() / 1000;
+                    
 
                     // Set up FlipDown
                     var flipdown = new FlipDown(parseInt(eventDate), {
@@ -636,9 +656,12 @@
                 <div class="wrapper">
                     <h3 class="section-title">Galeri</h3>
                     <div class="gallery-content">
-                        <img src="{{ asset('storage/storage/gallery/IS6KbGhJN44QLn7nVbMFTeVp6N0HC5fuU0pmIc6f.jpg') }}" alt="">
-                        <img src="{{ asset('storage/storage/gallery/yHagGtnZu0YwTptvagE3gDb4ppL14wBkaIjR3bQ3.jpg') }}" alt="">
-                        <img src="{{ asset('storage/storage/gallery/oDPtfWAJHOCXKrvpM9yqwfXjmf2tgnOsq0eZPgsL.jpg') }}" alt="">
+                        <img src="{{ asset('storage/storage/gallery/IS6KbGhJN44QLn7nVbMFTeVp6N0HC5fuU0pmIc6f.jpg') }}"
+                            alt="">
+                        <img src="{{ asset('storage/storage/gallery/yHagGtnZu0YwTptvagE3gDb4ppL14wBkaIjR3bQ3.jpg') }}"
+                            alt="">
+                        <img src="{{ asset('storage/storage/gallery/oDPtfWAJHOCXKrvpM9yqwfXjmf2tgnOsq0eZPgsL.jpg') }}"
+                            alt="">
                     </div>
                 </div>
             </section>
@@ -682,7 +705,7 @@
         <footer style="background-color: #fdfefe">
             <ul class="pb-20">
                 <li class="pb-10">
-                    <p class="hashtag text-center" style="font-size: 28px">#MarianiMazlan</p>
+                    <p class="hashtag text-center" style="font-size: 28px">#{{ $cardData->hashtag }}</p>
                 </li>
                 {{-- <li class="flex justify-center text-center">
                     <p>
@@ -710,7 +733,7 @@
 
     <!-- AOS -->
     <script src="{{ asset('storage/card/js/aos.js') }}"></script>
-    
+
 
     <!-- Color Calendar -->
     <script src="{{ asset('storage/plugins/color-calendar/dist/bundle.min.js') }}"></script>
@@ -719,12 +742,12 @@
         AOS.init();
 
         /* Preloader */
-        $(window).on('load', function () {
+        $(window).on('load', function() {
             var preloaderFadeOutTime = 500;
 
             function hidePreloader() {
                 var preloader = $('.spinner-wrapper');
-                setTimeout(function () {
+                setTimeout(function() {
                     preloader.fadeOut(preloaderFadeOutTime);
                 }, 500);
             }
@@ -732,7 +755,7 @@
         });
 
 
-        $(document).ready(function () {
+        $(document).ready(function() {
             $('.gallery-content').slick({
                 arrows: true,
                 dots: true,
@@ -740,11 +763,28 @@
                 speed: 300,
                 adaptiveHeight: true
             });
+            
+            function copyToClipboard(elementId) {
+                var textArea = document.createElement("textarea");
+                var element = document.getElementById(elementId);
+
+                // Check if the element exists
+                if (element) {
+                    textArea.value = element.innerText;
+                    document.body.appendChild(textArea);
+                    textArea.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(textArea);
+                    alert('Text copied to clipboard!');
+                } else {
+                    console.error('Element with ID ' + elementId + ' not found.');
+                }
+            }
         });
     </script>
 
     <script>
-        $(function () {
+        $(function() {
             var Toast = Swal.mixin({
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
@@ -759,7 +799,7 @@
                 confirmButtonText: 'Ya',
                 cancelButtonText: 'Tidak'
             });
-            $(document).on('click', '.confirmDelete', function (event) {
+            $(document).on('click', '.confirmDelete', function(event) {
                 var form = $(this).closest("form");
                 event.preventDefault();
                 Toast.fire({
@@ -771,7 +811,7 @@
                     }
                 })
             });
-            $(document).on('click', '.confirmDelete2', function (event) {
+            $(document).on('click', '.confirmDelete2', function(event) {
                 var form = $(this).closest("form");
                 event.preventDefault();
                 Toast2.fire({
@@ -783,7 +823,7 @@
                     }
                 })
             });
-            $(document).on('click', '.confirmCancel', function (event) {
+            $(document).on('click', '.confirmCancel', function(event) {
                 var form = $(this).closest("form");
                 event.preventDefault();
                 Toast2.fire({
@@ -795,7 +835,7 @@
                     }
                 })
             });
-            $(document).on('click', '.confirmDeleteRsvp', function (event) {
+            $(document).on('click', '.confirmDeleteRsvp', function(event) {
                 var form = $(this).closest("form");
                 event.preventDefault();
                 Toast2.fire({
@@ -807,7 +847,7 @@
                     }
                 })
             });
-            $(document).on('click', '.confirmDeleteWishes', function (event) {
+            $(document).on('click', '.confirmDeleteWishes', function(event) {
                 var form = $(this).closest("form");
                 event.preventDefault();
                 Toast2.fire({

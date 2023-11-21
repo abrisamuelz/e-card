@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('card_data', function (Blueprint $table) {
             $table->id();
+
+            $table->string('version')->default('v1');
             $table->string('url');
             $table->string('author')->nullable();
 
@@ -29,6 +31,7 @@ return new class extends Migration
 
             $table->string('lokasi')->nullable();
             $table->string('link_map_google')->nullable();
+            $table->mediumText('embed_map')->nullable();
             $table->string('link_map_waze')->nullable();
 
             $table->date('tarikh_majlis')->nullable();
@@ -54,6 +57,8 @@ return new class extends Migration
             $table->string('no_akaun')->nullable();
             $table->string('atas_nama')->nullable();
             $table->string('qr_img_url')->nullable();
+
+            $table->string('hashtag')->nullable();
 
             $table->string('card_type')->default('floral_1');
             
