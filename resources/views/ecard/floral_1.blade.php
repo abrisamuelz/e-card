@@ -288,9 +288,9 @@
                             </div>
                         </div>
                         <form action="#" method="POST" id="rsvp_form">
-                            <input type="hidden" name="_token" value="pXoHgWkLxKSnviyGqmEaguUWMpXlE7qZzox2Zeqc">
+                            @csrf
                             <div id="rsvp-form" class="text-center hidden">
-                                <input type="hidden" name="event_id" value="63c3f6b935d2b">
+                                <input type="hidden" name="event_id" value="{{ $cardData->event_id }}">
                                 <input type="hidden" name="limit" id="limit" value="5">
                                 <input type="hidden" name="status" value="">
                                 <p class="pb-1">Nama Anda</p>
@@ -359,7 +359,8 @@
                                 @foreach ($contacts as $contact)
                                     @if ($contact['name'] && $contact['number'])
                                         <li class="contact-item">
-                                            <span class="name" style="text-transform: capitalize;">{{ $contact['name'] }}</span>
+                                            <span class="name"
+                                                style="text-transform: capitalize;">{{ $contact['name'] }}</span>
                                             <div class="number">
                                                 <a href="tel:{{ $contact['number'] }}" target="_blank"><i
                                                         class='fas fa-phone nav__icon'></i></a>
@@ -403,15 +404,14 @@
                         </ul>
                     </div>
                 </div>
-                <input type="hidden" value="63c3f6b935d2b" id="event_id">
-
+                <input type="hidden" value="{{ $cardData->event_id }}" id="event_id">
                 <div class="feature-card" id="bookModal">
                     <div class="feature-content">
                         <h2 class="feature-title">Sampaikan Ucapan</h2>
                         <form action="#" method="POST" id="guestbook_form">
-                            <input type="hidden" name="_token" value="pXoHgWkLxKSnviyGqmEaguUWMpXlE7qZzox2Zeqc">
+                            @csrf
                             <div class="text-center">
-                                <input type="hidden" name="event_id" value="63c3f6b935d2b">
+                                <input type="hidden" name="event_id" value="{{ $cardData->event_id }}">
                                 <p class="pb-1">Nama Anda</p>
                                 <input class="border border-gray-400 p-2 w-full rounded h-8" type="text"
                                     name="name" required>
@@ -467,7 +467,8 @@
                             <p class="pb-1">Nama Bank</p>
                             <p class="bg-gray-100 p-1 w-full rounded text-center">{!! $cardData->nama_bank !!}</a>
                             <p class="pb-1 pt-3">Nama Pemegang Akaun</p>
-                            <p class="bg-gray-100 p-1 w-full rounded text-center" style="text-transform: capitalize;">{!! $cardData->atas_nama !!}</a>
+                            <p class="bg-gray-100 p-1 w-full rounded text-center" style="text-transform: capitalize;">
+                                {!! $cardData->atas_nama !!}</a>
                             <p class="pb-1 pt-3">No Akaun</p>
                             <p class="bg-gray-100 p-1 w-full rounded text-center" id="no_akaun">
                                 {!! $cardData->no_akaun !!}</a>
@@ -574,7 +575,8 @@
                         <p>{{ date('j F Y', strtotime($cardData->tarikh_majlis)) }}</p>
                         <br>
                         <p><b style="color: #be822b">Masa</b></p>
-                        <p>{{ date('h:i A', strtotime($cardData->masa_mula)) }} - {{ date('h:i A', strtotime($cardData->masa_akhir)) }}</p>
+                        <p>{{ date('h:i A', strtotime($cardData->masa_mula)) }} -
+                            {{ date('h:i A', strtotime($cardData->masa_akhir)) }}</p>
 
                         <br>
                         <p><b style="color: #be822b">Tempat</b></p>
@@ -642,7 +644,7 @@
                     var eventDate_raw = document.getElementById('event_date').value;
                     // convert event_date to seconds
                     var eventDate = new Date(eventDate_raw).getTime() / 1000;
-                    
+
 
                     // Set up FlipDown
                     var flipdown = new FlipDown(parseInt(eventDate), {
@@ -763,7 +765,7 @@
                 speed: 300,
                 adaptiveHeight: true
             });
-            
+
             function copyToClipboard(elementId) {
                 var textArea = document.createElement("textarea");
                 var element = document.getElementById(elementId);

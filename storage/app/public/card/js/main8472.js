@@ -94,12 +94,12 @@ function rsvp_adult(select) {
     for (var i = 0; i <= newLimit; i++)
         $("#child_limit").append(
             "<option value='" +
-                i +
-                "'" +
-                (currLimit == i ? "selected" : "") +
-                ">" +
-                i +
-                "</option>"
+            i +
+            "'" +
+            (currLimit == i ? "selected" : "") +
+            ">" +
+            i +
+            "</option>"
         );
 }
 
@@ -112,12 +112,12 @@ function rsvp_child(select) {
     for (var i = 1; i <= newLimit; i++)
         $("#adult_limit").append(
             "<option value='" +
-                i +
-                "'" +
-                (currLimit == i ? "selected" : "") +
-                ">" +
-                i +
-                "</option>"
+            i +
+            "'" +
+            (currLimit == i ? "selected" : "") +
+            ">" +
+            i +
+            "</option>"
         );
 }
 
@@ -184,16 +184,40 @@ function guestbook_success() {
 
 load_guestbook(event_id);
 
-// Guestbook load data
+// Guestbook load data js
 function load_guestbook(id) {
     $.ajax({
         url: "/guestbook/" + id,
         type: "get",
-        datatype: "html",
+        datatype: "json",
     })
         .done(function (data) {
+            // data json:
+            // {"status":"success","data":[{"id":1,"event_id":"NQnIg2LnY1","nama":"John Doe","ucapan":"Lorem ipsum dolor sit amet, consectetur adipiscing elit nisl.","created_at":"2023-11-23T11:43:14.000000Z","updated_at":"2023-11-23T11:43:14.000000Z"},{"id":2,"event_id":"NQnIg2LnY1","nama":"Ricky","ucapan":"Lorem ipsum dolor sit amet, consectetur adipiscing elit nisl.","created_at":"2023-11-23T11:43:14.000000Z","updated_at":"2023-11-23T11:43:14.000000Z"}]}
+
+            // data html:
+            // var data_html = '<div class="guestbook"><div class="guestbook-main"><p class="guestbook-comment">Selamat melayari bahtera rumahtangga. Tahniah & Selamat Pengantin Baru Ani & Suami..</p><br><p class="guestbook-name pb-10">-Nurrul Akhmar-</p></div><div class="guestbook-main"><p class="guestbook-comment">Selamat pengantin baru buat dua sahabat ku ...moga kalian sentiasa dimurahkan rezeki diberikan kesihatan berpanjangan dan bahagia sampai ke anak cucu ...congrats lan & ani</p><br><p class="guestbook-name pb-10">-Muhammad Farihin-</p></div><div class="guestbook-main"><p class="guestbook-comment">Tahniah lan and ani, moga dimurahkan rezeki dan jodoh korang berpanjangan sehingga jannah <3</p><br><p class="guestbook-name pb-10">-Iffah Irdina-</p></div><div class="guestbook-main"><p class="guestbook-comment">Tahniah Mariani & Mazlan!! 🌸</p><br><p class="guestbook-name pb-10">-Mimi Azhar-</p></div></div>';
+            
+            //convert json to html 
+
+            var datahtml = "";
+            var i = 0;
+
+            datahtml += '<div class="guestbook">';
+
+            for (i = 0; i < data.data.length; i++) {
+                datahtml +=
+                    '<div class="guestbook-main"><p class="guestbook-comment">' +
+                    data.data[i].ucapan +
+                    '</p><br><p class="guestbook-name pb-10">-' +
+                    data.data[i].nama +
+                    "-</p></div>";
+            }
+
+            datahtml += "</div>";
+
             $("#wishes").html("");
-            $("#wishes").append(data);
+            $("#wishes").append(datahtml);
             $(document).ready(function () {
                 $(".guestbook").slick({
                     arrows: false,
@@ -205,6 +229,7 @@ function load_guestbook(id) {
             });
         })
         .fail(function (jqXHR, ajaxOptions, thrownError) {
+            // Display an alert if the AJAX request fails
             alert("No response from server");
         });
 }
@@ -271,7 +296,7 @@ if (document.getElementById("start-btn")) {
             $(".gallery-content").slick("setPosition");
             $(".guestbook").slick("setPosition");
 
-            if($("#particles-js").length)
+            if ($("#particles-js").length)
                 initParticles($("#particle_color").val());
 
             if (document.getElementById("audio"))

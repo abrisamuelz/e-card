@@ -3,8 +3,9 @@
 namespace Database\Seeders;
 
 use App\Models\CardData;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class CardDataSeeder extends Seeder
 {
@@ -17,6 +18,8 @@ class CardDataSeeder extends Seeder
         
         $card_1->url = 'Allyn-Abrisam-Wedding';
         $card_1->author = 'abrisam (admin)';
+        // random text and number generator for event_id 
+        $card_1->event_id = 'NQnIg2LnY1';
         $card_1->nama_pengantin = 'nurfazlin binti mohd fauzi';
         $card_1->nama_pasangan = 'abrisam bin zahari';
         $card_1->nama_samaran_pengantin = 'Allyn';

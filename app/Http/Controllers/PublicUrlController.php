@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\CardData;
+use App\Models\Guestbook;
 use Illuminate\Http\Request;
 
 class PublicUrlController extends Controller
@@ -42,6 +43,24 @@ class PublicUrlController extends Controller
         } else {
             dd('tiada data');
             return redirect()->route('home');
+        }
+    }
+
+    public function data(Request $request)
+    {
+        $event_id = $request->event_id;
+        $cardData = CardData::where('event_id', $event_id)->first();
+        $guestbook = Guestbook::where('event_id', $event_id)->get();
+        if ($cardData) {
+            return response()->json([
+                'status' => 'success',
+                'data' => $guestbook,
+            ]);
+        } else {
+            return response()->json([
+                'status' => 'failed',
+                'message' => 'Tiada data',
+            ]);
         }
     }
 }

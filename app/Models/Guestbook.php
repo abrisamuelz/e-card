@@ -5,17 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class CardData extends Model
+class Guestbook extends Model
 {
     use HasFactory;
 
-    const TABLE_NAME = 'card_data';
+    const TABLE_NAME = 'guestbook';
     protected $table = self::TABLE_NAME;
 
     protected $guarded = [];
 
-    public function guestbook()
+    public function cardData()
     {
-        return $this->hasMany(Guestbook::class, 'event_id', 'event_id');
+        return $this->belongsTo(CardData::class, 'event_id', 'event_id');
     }
 }

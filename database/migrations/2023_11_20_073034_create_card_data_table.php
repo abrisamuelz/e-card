@@ -15,8 +15,10 @@ return new class extends Migration
             $table->id();
 
             $table->string('version')->default('v1');
-            $table->string('url');
+            $table->string('url')->unique();
             $table->string('author')->nullable();
+
+            $table->string('event_id')->unique();
 
             $table->string('nama_pengantin')->nullable();
             $table->string('nama_pasangan')->nullable();
